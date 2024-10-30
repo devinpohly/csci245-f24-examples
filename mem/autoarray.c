@@ -1,9 +1,10 @@
 #include <stdio.h>
 
-int somearray[100];
 
 int * new_array(int n) {
-	return somearray;
+	int somearray[100];
+	int *ret = somearray;
+	return ret;
 }
 
 int main(void)
