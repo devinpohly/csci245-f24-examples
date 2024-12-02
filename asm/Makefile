@@ -1,1 +1,6 @@
-all: disassembler virtualmachine
+BINS = disassembler virtualmachine
+
+all: $(BINS)
+
+clean:
+	$(RM) $(BINS)
