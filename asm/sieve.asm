@@ -21,6 +21,9 @@ first:
 
      MOVI 2 r2          // i = 2 (initialization of second loop)
 second:
+
+
+
      MOV r1 r3
      ADD r2 r3          //   r3 = arr + i   // beginning of body of second loop
      LD r3 r3           //  r3 = arr[i]
@@ -29,13 +32,22 @@ second:
      MOVI bail r4       // if !arr[i] go to bail
      JNZ r3 r4          // (if arr[i] is not prime, skip inner loop)
 
+
+
+
      MOVI 2 r3          // r3 = 2
      MUL r2 r3          // j = 2 * i  // r3 is j (initialization of inner loop)
 inner:
+
+
+
      MOVI 0 r4          //  r4 = 0             // body of
      MOV r1 r5
      ADD r3 r5          //  r5 = arr + j         // inner loop
      ST r5 r4           // arr[j] = 0 
+
+
+
      ADD r2 r3          // j = i + j  (increment of inner loop)       
 
      MOV r3 r4
@@ -47,7 +59,13 @@ inner:
      MOVI inner r5      // r5 = inner
      JMP r5             // always jump to inner (otherwise, repeat inner loop body)
 
+
+
+
 bail:                   // second loop, after inner loop
+
+
+
      MOVI 1 r3          // 
      ADD r3 r2          // i++ // increment of second loop
      MOVI 100 r3        //  r3 = 100
