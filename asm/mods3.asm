@@ -8,15 +8,15 @@
 // i = r6
 
 
-	MOVI 111 r2
-	MOVI 8 r6
-
-	PUSH r2
-	PUSH r6
+	// printmod(111, 8)
+	MOVI 111 r1
+	PUSH r1
+	MOVI 8 r1
+	PUSH r1
 	MOVI printmod r7
 	JAL r7
-	POP r10
-	POP r10
+	MOVI 2 r2
+	SUB r2 sp
 
 
 	// initialization
@@ -25,14 +25,16 @@ topofloop:
 
 
 	// body
-	MOVI 29 r2
-
-	PUSH r2
+	//printmod(29, i)
+	PUSH r6
+	MOVI 29 r1
 	PUSH r1
+	PUSH r6
 	MOVI printmod r7
 	JAL r7
-	POP r10
-	POP r10
+	MOVI 2 r7
+	SUB r7 sp
+	POP r6
 
 
 	// increment
@@ -49,42 +51,38 @@ topofloop:
 	HALT
 
 
-mod:
+mod: // (a, b) -> int
 	PUSH fp
 	MOV sp fp
 
-	// get a
-	LDLO -3 r3
-	// get b
+	// at this point, &a == FP - 3
+	//                &b == FP - 2
+	LDLO -3 r6
 	LDLO -2 r2
 
 	// mod(a, b) returns a % b
-	MOV r3 r1
-	IDIV r2 r3
-	MUL r2 r3
-	SUB r3 r1
-
+	MOV r6 r1
+	IDIV r2 r6
+	MUL r2 r6
+	SUB r6 r1
 
 	POP fp
 	RET
 
-printmod:
+printmod: // (a, b)
 	PUSH fp
-	MOV sp fp
-	// printmod(a, b) prints a % b
 	PUSH rp
+	MOV sp fp
 
-	// get a
-	LDLO -3 r1
-	// get b
-	LDLO -2 r2
-
+	// print(mod(a, b))
+	LDLO -4 r1
+	LDLO -3 r2
 	PUSH r1
 	PUSH r2
 	MOVI mod r7
 	JAL r7
-	POP r10
-	POP r10
+	MOVI 2 r2
+	SUB r2 sp
 
 	OUT r1
 
